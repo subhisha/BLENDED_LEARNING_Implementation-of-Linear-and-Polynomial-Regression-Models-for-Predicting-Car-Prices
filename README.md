@@ -27,17 +27,21 @@ from sklearn.preprocessing import PolynomialFeatures, StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import mean_squared_error, r2_score,mean_absolute_error
 import matplotlib.pyplot as plt
+
 df = pd.read_csv('encoded_car_data (1).csv')
 print(df.head)
+
 X = df[['enginesize', 'horsepower', 'citympg', 'highwaympg']]
 y = df['price']
 X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.2, random_state=42)
+
 lr= Pipeline([
     ('scaler', StandardScaler()),
     ('model',LinearRegression())
 ])
 lr.fit(X_train, y_train)
 y_pred_linear = lr.predict(X_test)
+
 poly_model = Pipeline([
     ('poly', PolynomialFeatures(degree=2)),
     ('scaler', StandardScaler()),
@@ -45,8 +49,9 @@ poly_model = Pipeline([
 ])
 poly_model.fit(X_train, y_train)
 y_pred_poly = poly_model.predict(X_test)
-print('Name: SUBHISHA P')
-print('Reg. No: 212225040143')
+
+print('Namme: SUBHISHA P')
+print('Reg. No: 212225040431')
 print("linear Regression:")
 mae=mean_absolute_error(y_test, y_pred_poly)
 mse=mean_squared_error(y_test,y_pred_linear)
@@ -56,8 +61,10 @@ r2score=r2_score(y_test,y_pred_linear)
 print('R2 Score=',r2score)
 print("\nPolynomial Regression:")
 print(f"MSE: {mean_squared_error(y_test, y_pred_poly):.2f}")
-print(f"R^2: {r2_score(y_test, y_pred_poly):.2f}")plt.figure(figsize=(10,5))
+print(f"R^2: {r2_score(y_test, y_pred_poly):.2f}")
 print(f"MAE: {mean_squared_error(y_test, y_pred_poly):.2f}")
+
+plt.figure(figsize=(10,5))
 plt.scatter(y_test, y_pred_linear, label='Linear', alpha=0.5)
 plt.scatter(y_test, y_pred_poly, label='Polynomial(degree=2)', alpha=0.6)
 plt.plot([y.min(), y.max()], [y.min(), y.max()], 'r--' ,label='Perfect Prediction')
@@ -66,6 +73,9 @@ plt.ylabel("Predicted Price")
 plt.title("Linear vs Polynomial Regression")
 plt.legend()
 plt.show()
+
+
+
 ```
 
 ## Output:
